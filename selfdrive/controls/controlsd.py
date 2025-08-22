@@ -163,6 +163,29 @@ class Controls:
 
     hudControl.rightLaneVisible = True
     hudControl.leftLaneVisible = True
+    hudControl.leftLaneClose = False
+    hudControl.rightLaneClose = False
+    hudControl.leftLaneDepart = False
+    hudControl.rightLaneDepart = False
+
+    # Check for lane visibility and closeness from modelV2 if available
+    if self.sm.valid['modelV2']:
+      model_v2 = self.sm['modelV2']
+      if hasattr(model_v2, 'laneLineProbs') and len(model_v2.laneLineProbs) >= 3:
+        hudControl.leftLaneVisible = model_v2.laneLineProbs[1] > 0.5
+        hudControl.rightLaneVisible = model_v2.laneLineProbs[2] > 0.5
+
+        # Check for lane closeness using lane line positions if available
+        if hasattr(model_v2, 'laneLines') and len(model_v2.laneLines) >= 3:
+          CAMERA_OFFSET = 0.04  # Camera offset from center
+          # Left lane is close if it's more than -1.08m from center (considering camera offset)
+          l_lane_close = hudControl.leftLaneVisible and (model_v2.laneLines[1].y[0] > -(1.08 + CAMERA_OFFSET))
+          # Right lane is close if it's less than 1.08m from center (considering camera offset)
+          r_lane_close = hudControl.rightLaneVisible and (model_v2.laneLines[2].y[0] < (1.08 - CAMERA_OFFSET))
+
+          hudControl.leftLaneClose = bool(l_lane_close)
+          hudControl.rightLaneClose = bool(r_lane_close)
+
     if self.sm.valid['driverAssistance']:
       hudControl.leftLaneDepart = self.sm['driverAssistance'].leftLaneDeparture
       hudControl.rightLaneDepart = self.sm['driverAssistance'].rightLaneDeparture

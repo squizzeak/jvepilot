@@ -108,7 +108,10 @@ class CarController(CarControllerBase):
       if CS.lkas_car_model != -1:
         can_sends.append(chryslercan.create_lkas_hud(self.packer, self.CP, CC.latActive and self.lkas_control_bit_prev, CC.hudControl.visualAlert,
                                                      self.hud_count, CS.lkas_car_model, CS.auto_high_beam,
-                                                     CC.enabled or CS.out.jvePilotCarState.aolcReady, CS.out.cruiseState.available))
+                                                     CC.enabled or CS.out.jvePilotCarState.aolcReady, CS.out.cruiseState.available,
+                                                     CC.hudControl.leftLaneVisible, CC.hudControl.rightLaneVisible,
+                                                     CC.hudControl.leftLaneClose, CC.hudControl.rightLaneClose,
+                                                     CC.hudControl.leftLaneDepart, CC.hudControl.rightLaneDepart))
         self.hud_count += 1
 
     # steering
