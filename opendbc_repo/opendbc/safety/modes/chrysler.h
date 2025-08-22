@@ -122,9 +122,9 @@ static void chrysler_rx_hook(const CANPacket_t *msg) {
 static bool chrysler_tx_hook(const CANPacket_t *msg) {
   const TorqueSteeringLimits CHRYSLER_STEERING_LIMITS = {
     .max_torque = 261,
-    .max_rt_delta = 112,
-    .max_rate_up = 3,
-    .max_rate_down = 3,
+    .max_rt_delta = 150,
+    .max_rate_up = 4,
+    .max_rate_down = 4,
     .max_torque_error = 80,
     .type = TorqueMotorLimited,
   };

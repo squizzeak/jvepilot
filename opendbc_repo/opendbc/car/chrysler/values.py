@@ -37,7 +37,7 @@ class ChryslerPlatformConfig(PlatformConfig):
 
 @dataclass(frozen=True)
 class ChryslerCarSpecs(CarSpecs):
-  minSteerSpeed: float = 3.8  # m/s
+  minSteerSpeed: float = 2.8  # m/s
 
 
 class CAR(Platforms):
@@ -118,8 +118,8 @@ class CarControllerParams:
       self.STEER_DELTA_DOWN = 3 if use_pid else 6
       self.STEER_MAX = 261  # EPS allows more, up to 350?
     else:
-      self.STEER_DELTA_UP = 3
-      self.STEER_DELTA_DOWN = 3
+      self.STEER_DELTA_UP = 4
+      self.STEER_DELTA_DOWN = 4
       self.STEER_MAX = 261  # higher than this faults the EPS
 
     self.ACC_CONTROL_STEP = 2  # 50Hz
