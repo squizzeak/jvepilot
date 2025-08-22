@@ -89,6 +89,7 @@ class CarInterface(CarInterfaceBase):
 
       ret.enableBsm = True
       ret.alphaLongitudinalAvailable = True
+      ret.wheelSpeedFactor = 1.035
 
     # Ram
     elif candidate == CAR.RAM_1500_5TH_GEN:
